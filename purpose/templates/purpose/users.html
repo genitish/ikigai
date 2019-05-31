@@ -1,0 +1,20 @@
+
+
+{% extends 'base.html'%}
+
+
+
+{% block content %}
+
+<br>
+<center>
+
+    {% for i in u %}
+    {{i.username}} {{i.email}} <a href="{% url 'purpose:retrive_user_list' i.pk %}">View List</a>
+
+    <br>
+    {% endfor %}
+
+</center>
+
+{% endblock %}

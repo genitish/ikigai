@@ -1,0 +1,63 @@
+
+
+{% extends 'base.html'%}
+
+
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <center><h3 style ="color:red;">Your purpose should be combination of {% for i in purpose %} , {{i}}  {% endfor %}</h3></center>
+    {% for i in s %}
+     <div class="col-md-3 col-lg-3">
+      {% if forloop.counter == 1 %}
+    <div class="card-deck bg-info card border-dark mb-3" >
+    
+      {% elif forloop.counter == 2 %}
+      <div class="card-deck bg-primary card border-dark mb-3" >
+        {% elif forloop.counter == 3 %}
+         <div class="card-deck bg-secondary card border-dark mb-3" >
+        {% else %} 
+        <div class="card-deck bg-danger card border-dark mb-3" >
+          {%endif %}
+      <div class="card-body text-center">
+         <h4 class="card-title">{{i.name}}</h4>
+        
+      <ul class="list-group list-group-flush bg-info ">
+          <li class="list-group-item">
+          <form class="" method="post">
+            {% csrf_token %}
+          <input type="text" name="list" required>
+          <input type="submit" name="{{ i.name }}" value="Add">
+        </form>
+        </li>
+          {% for j in t %}
+            {% if j.section.name == i.name %}
+              <li class="list-group-item"><table><tr><td>{{j.name}}</td>
+              <td><a href="{% url 'purpose:update' j.pk %}">Update</a></td>
+              <td><a href="{% url 'purpose:delete' j.pk %}">Delete</a></td>
+            </tr>
+          </table>
+        </li>
+            {% endif %}
+            {% endfor %}
+
+      </ul>
+     </div >
+    </div >
+  </div>
+    {% endfor %}
+  </div>
+</div>
+    <br>
+    <br>
+
+    <br>
+    <br>
+   <center> <h3> Want to see the list of others users </h3>
+      <a href="{% url 'purpose:users' %}">USER</a></center>
+
+
+
+
+{% endblock %}
